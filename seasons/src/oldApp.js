@@ -9,31 +9,23 @@ class App extends Component {
   }
   // geolocation doesn't want to be initialised in the render method, means that the instant the App component turns up on screen will attempt to to get the users current location, will run some time in the future.
   // needs componentDidMount or cannot call setState on unmounted component
-  // lifecycle method initialises state!
-  // do your data loading inside componentDidMount()
   componentDidMount() {
-    console.log('My component was rendered to the screen')
     window.navigator.geolocation.getCurrentPosition(
-      (position) => this.setState({ lat: position.coords.latitude, lon: position.coords.longitude }),
-      (err) => this.setState({ errorMessage: err.message })
+      (position) => {
+        this.setState({ lat: position.coords.latitude, lon: position.coords.longitude })
+      },
+      (err) => {
+        this.setState({ errorMessage: err.message })
+      }
     )
   }
-  componentDidUpdate() {
-    console.log('Component updated, rerendered to screen')
-  }
-  // render method alone, about returning some jsx, not doing other stuff.
+
   render() {
     if (this.state.errorMessage && this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>
     }
     if (!this.state.errorMessage && this.state.lat) {
-      return (
-        <div>
-          Latitude: {this.state.lat}
-          <br />
-          Londitude: {this.state.lon}
-        </div>
-      )
+      return <div>Latitude: {this.state.lat}</div>
     }
 
     return <div>Loading!</div>
@@ -49,7 +41,8 @@ export default App
 
 // only want to show error message if an error
 
-/* <h1>Seasons</h1>
+{
+  /* <h1>Seasons</h1>
         <div>
           Latitude: {this.state.lat}
           <br />
@@ -57,3 +50,4 @@ export default App
           <br />
           Error: {this.state.errorMessage}
         </div> */
+}
