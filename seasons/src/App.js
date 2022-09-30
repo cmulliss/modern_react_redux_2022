@@ -12,28 +12,19 @@ class App extends Component {
   // lifecycle method initialises state!
   // do your data loading inside componentDidMount()
   componentDidMount() {
-    console.log('My component was rendered to the screen')
     window.navigator.geolocation.getCurrentPosition(
       (position) => this.setState({ lat: position.coords.latitude, lon: position.coords.longitude }),
       (err) => this.setState({ errorMessage: err.message })
     )
   }
-  componentDidUpdate() {
-    console.log('Component updated, rerendered to screen')
-  }
+  componentDidUpdate() {}
   // render method alone, about returning some jsx, not doing other stuff.
   render() {
     if (this.state.errorMessage && this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>
     }
     if (!this.state.errorMessage && this.state.lat) {
-      return (
-        <div>
-          Latitude: {this.state.lat}
-          <br />
-          Londitude: {this.state.lon}
-        </div>
-      )
+      return <SeasonDisplay lat={this.state.lat} />
     }
 
     return <div>Loading!</div>
