@@ -1,4 +1,16 @@
 import React from 'react'
+import './SeasonDisplay.css'
+
+const seasonConfig = {
+  summer: {
+    text: "Let's hit the beach!",
+    iconName: 'sun'
+  },
+  winter: {
+    text: 'Brr, its chilly!',
+    iconName: 'snowflake'
+  }
+}
 
 // new fn to determine season
 const getSeason = (lat, month) => {
@@ -10,19 +22,20 @@ const getSeason = (lat, month) => {
 }
 
 const SeasonDisplay = (props) => {
+  //
   const season = getSeason(props.lat, new Date().getMonth())
-  const text = season === 'winter' ? 'Brrr, it is chilly' : "Let's hit the beach"
-  const icon = season === 'winter' ? 'snowflake' : 'sun'
+  // destructure out text and iconName
+  const { text, iconName } = seasonConfig[season] //  will return our object: {text, inconName}
 
   console.log(season)
   return (
-    <div>
+    <div className={`season-display ${season}`}>
       <h1>
-        <i className={`${icon} icon`}></i>
+        <i className={`icon-left huge ${iconName} icon`}></i>
       </h1>
       <h1>{text}</h1>
       <h1>
-        <i className={`${icon} icon`}></i>
+        <i className={`icon-right huge ${iconName} icon`}></i>
       </h1>
     </div>
   )
@@ -30,8 +43,4 @@ const SeasonDisplay = (props) => {
 
 export default SeasonDisplay
 
-// /* <div>
-// Latitude: {this.state.lat}
-// <br />
-// Longitude: {this.state.lon}
-// </div> */
+// good practice to make sure the root element inside the component has a className = to the kind of the CSS version of the component name.
