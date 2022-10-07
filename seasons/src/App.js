@@ -28,7 +28,11 @@ class App extends Component {
   }
 
   render() {
-    return <div className='border red'>{this.renderContent()}</div>
+    return (
+      <div>
+        <div className='border red'>{this.renderContent()}</div>
+      </div>
+    )
   }
 }
 export default App
