@@ -20,7 +20,7 @@ const getSeason = (lat, month) => {
     return lat > 0 ? 'winter' : 'summer'
   }
 }
-
+// the component, put config at top
 const SeasonDisplay = (props) => {
   //
   const season = getSeason(props.lat, new Date().getMonth())
